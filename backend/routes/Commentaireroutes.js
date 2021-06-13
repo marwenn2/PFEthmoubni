@@ -1,50 +1,93 @@
 const router = require('express').Router();
 let commentaire = require('../models/Comments.model')
-
+const auth = require('../middleware/auth');
+const User= require('../models/usermodel')
+const { check, validationResult } = require('express-validator')
+const annonce = require('../models/annonce')
 ///récuperer toutes les annonces de la base de données
 router.get('/recuperercommentaires', (req, res) => {
     commentaire.find()
         .then(commentaires => res.json(commentaires))
         .catch(err => res.status(400).json('Error: ' + err));
 })
-router.post('/Ajoutcommentaire', (req, res) => {
-    
-    const title= req.body.title;
-    const text = req.body.text;
-    const name= req.body.name;
-    const commentairee = new commentaire ({
-            title,text,name
+router.route('/addComment/:id').post([auth, [
+    check('comment', 'Text is required').not().isEmpty()
+]], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() })
+    }
+    try {
+        const user = await User.findById(req.user.id).select('-password');
+       
+        const newComment = new commentaire({
+            comment: req.body.comment,
+            user: req.user.id
+        })
+        const post = await annonce.findById(req.params.id);
+        post.comments.push(newComment);
+        const addComment = await newComment.save();
+        const updatepost = await post.save();
+        res.json(updatepost);
 
-    });
-    commentairee.save()
-    .then(() => res.json(commentairee))
-    .catch(err => res.status(400).json('Error:' + err));
-    
-    
-    
+
+    } catch (error) {
+        console.error(error)
+        res.status(500).send('server Error')
+    }
+
 })
 /////modification d'une annonce
-router.put('/modifiercommentaire/:id', (req, res) => {
-    commentaire.findById(req.params.id)
-        .then(ann => {
-            ann.title = req.body.title;
-            ann.text = req.body.text;
-            ann.name = req.body.name;
-           
-            ann.save()
-                .then(() => res.json('annonce mise à jour!'))
-                .catch(err => res.status(400).json('Error: ' + err));
-        })
-        .catch(err => res.status(400).json('Error: ' + err));
-})
+router.route('/modifiercommentaire/:idp/:idc').put([auth, 
+    
+], async (req, res) => {
+ 
+    try {
+        const commentairee = await commentaire.findById(req.params.idc);
+        commentairee.coment= req.body.comment;
 
+        const post = await annonce.findById(req.params.idp);
+        //console.log(post.comments)
+        
+        post.comments.filter(x => x._id.toString()===commentairee._id.toString()).forEach(c=> c.comment=req.body.comment);
+        
+        post.save().then(() => res.json('annonce mise à jour!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+        commentairee.save().then(() => res.json('annonce mise à jour!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+        
+    } catch (error) {
+        console.error(error)
+        res.status(500).send('server Error')
+    }
+
+})
 ///supprimer une annonce
-router.delete('/deletecommentaire/:id', (req, res) => {
-    commentaire.findByIdAndDelete(req.params.id)
-        .then(() => res.json('annonce supprimée.'))
-        .catch(err => res.status(400).json('Error: ' + err));
-})
 
+router.route('/deletecommentaire/:idp/:idc').delete([auth, 
+    
+], async (req, res) => {
+ 
+    try {
+        const commentairee = await commentaire.findById(req.params.idc);
+        const post = await annonce.findById(req.params.idp);
+        //console.log(post.comments)
+        const comms = post.comments;
+        const index=comms.findIndex(x => x._id.toString()===commentairee._id.toString())
+        console.log(index)
+        comms.splice(1)
+        post.comments=comms;
+        console.log(post.comments)
+        post.save().then(() => res.json('annonce mise à jour!'))
+        .catch(err => res.status(400).json('Error: ' + err));
+        commentaire.findByIdAndDelete(req.params.idc).then(()=>res.json('commenaire supprimé')).catch(err =>res.status(400).json('Error:'+err))
+        
+    } catch (error) {
+        console.error(error)
+        res.status(500).send('server Error')
+    }
+
+})
 router.get('/recuperercommentaires/:id', (req, res) => {
     commentaire.findById(req.params.id)
         .then(commentaire => res.json(commentaire))

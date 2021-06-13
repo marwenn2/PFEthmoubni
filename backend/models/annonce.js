@@ -27,6 +27,21 @@ const AnnonceSchema = new Schema({
     avatar: {
         type: String
     },
+    comments : [{
+        comment : 
+        {
+            type: String,
+            required: true
+        },
+        date: {
+            type:Date,
+            default: Date.now
+        },
+        user: {
+            type:Schema.Types.ObjectId,
+            ref: 'users'
+        }
+    }]
 
 });
 

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcryptjs')
 const userSchema = new Schema({
-    userName: {
+    username: {
         type: String,
         required: true,
     },
@@ -14,19 +14,19 @@ const userSchema = new Schema({
         type: String,
         required: true,
     },
-    phoneNumber: {
+    phonenumber: {
         type: String,
     },
-    birthDate: {
+    borndate: {
         type: Date
     },
-    birthPlace: {
+    bornplace: {
         type: String
     },
-    firstName: {
+    Firstname: {
         type: String
     },
-    lastName: {
+    Lastname: {
         type: String,
     },
 
@@ -47,12 +47,12 @@ const userSchema = new Schema({
 
 
 
-    // google: 
-    //     id: String,
-    //     token: String,
-    //     email: String,
-    //     name: String
-    // }
+    google: {
+        id: String,
+        token: String,
+        email: String,
+        name: String
+    }
 
 })
 

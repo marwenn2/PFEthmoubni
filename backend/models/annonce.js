@@ -13,6 +13,14 @@ const AnnonceSchema = new Schema({
         type: String,
         required: true
     },
+    categorie: {
+        type:String,
+        required:true
+    },
+    zone: {
+        type:String,
+        required:true
+    },
     name: {
         type: String
     },

@@ -71,6 +71,12 @@ const Navigation=({isAuth,setIsAuth})=> {
         history.push('/login')
     }
   
+    const handleannonce=()=> {
+        history.push('/offre');
+    }
+    const handleannonce1=()=> {
+        history.push('/posterannonce');
+    }
     return(
         <>
         <WrapperFlex>
@@ -84,10 +90,14 @@ const Navigation=({isAuth,setIsAuth})=> {
             <StyledButton onClick={()=>history.push('/')}>Accueil</StyledButton>
             <StyledButton>Annonces</StyledButton>
             {isAuth?
-            
-            <StyledButton onClick={()=>handleLogout()}>Log out</StyledButton>:
+             <div>
+                  <StyledButton onClick={handleannonce1}>Ajouter Annonces</StyledButton>
+                  <StyledButton onClick={()=>handleLogout()}>Log out</StyledButton>
+             </div>
+            :
             <StyledButton onClick={handleLogin}>Connexion</StyledButton>}
-            
+           
+           
             </Wrapper>
            
         </WrapperFlex>

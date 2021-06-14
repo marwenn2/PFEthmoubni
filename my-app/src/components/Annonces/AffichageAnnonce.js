@@ -65,7 +65,7 @@ const AffichageAnnonce = () => {
                   <dt className="col-6">Nombre de commentaire</dt>
                   <dd className="col-6">{element.comments.length}</dd>
                   <dt className="col-6">Plus d'informations</dt>
-                  <dd className="col-6"><Button style={{backgroundColor:"#FFCCA3",color:"black",border:"0",paddingTop:"12px"}} onClick={()=>handledetails(element._id)}>Détailles</Button></dd>
+                  <dd className="col-6"><Button style={{backgroundColor:"#FFCCA3",color:"black",border:"0",paddingTop:"12px",}} onClick={()=>handledetails(element._id)}>Details</Button></dd>
                 </dl>
               </CardBody>
             </Card>

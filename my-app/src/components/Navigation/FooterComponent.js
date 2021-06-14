@@ -10,10 +10,10 @@ function Footer() {
             <h5>Links</h5>
             <ul className="list-unstyled">
               <li>
-                <Link to="/home">Home</Link>
+                <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/aboutus">About Us</Link>
+                <Link to="/offre">annonces</Link>
               </li>
               <li>
                 <Link to="/menu">Menu</Link>

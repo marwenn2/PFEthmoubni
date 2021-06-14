@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useParams } from "react-router";
-import { Collapse,Card,CardBody,Button } from "reactstrap";
+import { Collapse,Card,CardBody,Button,Modal,ModalHeader,ModalBody,FormGroup,Form,Label,Input } from "reactstrap";
 const AffichageuneAnnonce = () => {
     const {id}= useParams();
     const [isOpen, setIsOpen] = useState(false);
     const [comments,setcomments]= useState([]);
     const toggle = () => setIsOpen(!isOpen);
-    const [isOpen1, setIsOpen1] = useState(false);
+    const [isOpen1, setIsOpen1] = useState(true);
     const toggle1 = () => setIsOpen1(!isOpen1);
     const [annonce,setannonces] = useState();
     const [idd,setidd] = useState();
     const [user,setuser] = useState();
+    const [ismodalOpen,setismodalOpen]= useState(false);
+    const toggleModal=()=> {
+      setismodalOpen(!ismodalOpen);
+    }
     useEffect(()=> {
         axios.get(`http://localhost:5000/annonce/recupererannonce/${id}`)
         .then(res => {
@@ -27,7 +31,7 @@ const AffichageuneAnnonce = () => {
         })
        
     },[])
-  
+      
     return(
         <>
         <div style={{marginTop:"100px"}}>
@@ -51,7 +55,7 @@ const AffichageuneAnnonce = () => {
                   </CardBody>
                 </Card>
               </Collapse>
-              <Button color="primary" onClick={toggle1} style={{ marginBottom: '1rem' }}>Show user details</Button>
+              <Button color="primary" onClick={toggle1} style={{ marginBottom: '1rem' }}>{comments.length}</Button>
               <Collapse isOpen={isOpen1}>
                     { comments.length===0?<Card><CardBody><p>il n'y a pas de commentaire pour cette annonce </p></CardBody></Card> : annonce.comments.map((comment,index) =>{
                       <Card>
@@ -63,6 +67,28 @@ const AffichageuneAnnonce = () => {
                       
                 }
               </Collapse>
+              <Button outline onClick={()=>toggleModal()}>
+                    <span className="fa fa-sign-in fa-lg" /> Ajouter commentaire
+                  </Button>
+              <Modal isOpen={ismodalOpen} toggle={()=>toggleModal()}>
+          <ModalHeader toggle={()=>toggleModal()}>Ajouter votre commentaire</ModalHeader>
+          <ModalBody>
+            <Form >
+              <FormGroup>
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  type="text"
+                  id="username"
+                  name="username"
+                 
+                />
+              </FormGroup>
+              <Button type="submit" value="submit" color="primary">
+                Login
+              </Button>
+            </Form>
+          </ModalBody>
+        </Modal>
             </div>
           </div>
           

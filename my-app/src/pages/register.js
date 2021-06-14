@@ -86,7 +86,7 @@ const RegisterPage = ({isAuth,setIsAuth})=>{
     const handleClick = async()=> {
         try {
             
-            const response = await axios.post('/users/register',{firstName,lastName,phoneNumber,email,password,birthDate,adress})  
+            const response = await axios.post('http://localhost:5000/users/register',{firstName,lastName,phoneNumber,email,password,birthDate,adress})  
             localStorage.setItem("token",response.data.token) ;   
             history.push('/') ; 
             setIsAuth(true); 

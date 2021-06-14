@@ -8,11 +8,11 @@ import axios from 'axios' ;
 const SignInButton = styled.button`
 margin-top: 20px ; 
 margin-left: 50% ; 
-margin-botto: 100px ; 
+margin-bottom: 100px ; 
 background-color: #4b9deb ; 
 border: 0 ; 
 border-radius: 14px ; 
-width: 10% ; 
+width: 15% ; 
 color: white ; 
 
 
@@ -65,6 +65,11 @@ const IMG = styled.img`
 `
 const Error= styled.div`
 color: red;`
+
+const Label = styled.h4`
+margin-top: 10px ; 
+font-size: 18px ; 
+`
 const RegisterPage = ()=>{
 
     const [email , setEmail ] = useState("") ; 
@@ -97,13 +102,13 @@ return (
      </SidePage>
     <ColWrapper>
   
-        <h2 style={{marginLeft: "150px"}}>Register to Khadamny</h2>
+        <h2 style={{marginLeft: "150px",marginTop:"20px"}}>Register to Khadamny</h2>
         <Error>{error}</Error>    
         
         <form>
             <RowFlex>
             <div style={{marginLeft:"50px"}}>
-            <h4>Email adress</h4>
+            <Label>Email adress</Label>
             <TextField label="Email" color='primary'
             variant='outlined'
             type='email'
@@ -112,46 +117,46 @@ return (
             </div>
             
             <div style={{marginLeft:"50px"}}>
-            <h4>Password</h4>
+            <Label>Password</Label>
             <TextField label="Password" variant='outlined'
             type='password'
             onChange={(e)=>setPassword(e.target.value)}/>
             </div>
             <div style={{marginLeft:"50px"}}>
-            <h4>First name : </h4>
+            <Label>First name : </Label>
             <TextField label="First name" variant='outlined'
             type='text'
             onChange={(e)=>setPassword(e.target.value)}/>
             </div>
            
             <div style={{marginLeft:"50px"}}>
-             <h4>Last name: </h4>
+             <Label>Last name: </Label>
             <TextField label="Last name" variant='outlined'
             type='text'
             onChange={(e)=>setPassword(e.target.value)}/>
             </div>
 
             <div style={{marginLeft:"50px"}}>
-             <h4>Phone number:</h4>
+             <Label>Phone number:</Label>
             <TextField label="Phone number" variant='outlined'
             type='tel'
             onChange={(e)=>setPassword(e.target.value)}/>
 </div>
 <div style={{marginLeft:"50px"}}>
-             <h4>Adress:</h4>
+             <Label>Adress:</Label>
             <TextField label="Adress" variant='outlined'
             type='text'
             onChange={(e)=>setPassword(e.target.value)}/>
 </div>
 
 <div style={{marginLeft:"50px"}}>
-             <h4>Skills:</h4>
+             <Label>Skills:</Label>
             <TextField label="Skills" variant='outlined'
             type='text'
             onChange={(e)=>setPassword(e.target.value)}/>
             </div>
             <div style={{marginLeft:"50px"}}>
-             <h4>Birth Date</h4>
+             <Label>Birth Date</Label>
             <TextField  variant='outlined'
             type='date'
             onChange={(e)=>setPassword(e.target.value)}/>

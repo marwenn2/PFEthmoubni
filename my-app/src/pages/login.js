@@ -59,6 +59,10 @@ const IMG = styled.img`
  width: 160% ; 
  height: 100% ; 
 `
+const Label = styled.h4`
+margin-top: 20px ; 
+font-size: 18px ; 
+`
 const Error= styled.div`
 color: red;`
 const LoginPage = ({isAuth,setIsAuth})=>{
@@ -89,13 +93,16 @@ return (
         <IMG src={loginSVG} ></IMG>
      </SidePage>
     <ColWrapper>
-    <Link to='/register'>Don't have an account ? Register</Link>
-        <h2>Login to Khadamny</h2>
+    <span>Don't have an account ?               
+    <Link to='/register'> Register</Link>
+    </span>
+        <h2 style={{marginTop:"20px"}}>Login to Khadamny</h2>
         <Error>{error}</Error>    
         
         <form>
-            <h4>Email adress</h4>
+            <Label>Email adress</Label>
             <TextField label="Email" color='primary'
+            fullWidth="true"
             variant='outlined'
             type='email'
             error={Boolean(error)}
@@ -104,7 +111,7 @@ return (
 
             <ColContainer>
             <FlexContainer>
-            <h4>Password</h4>
+            <Label>Password</Label>
             <Link to='/forgot-password'>forgot password ?</Link>
             </FlexContainer>
             

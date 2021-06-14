@@ -90,7 +90,7 @@ const Navigation=({isAuth,setIsAuth})=> {
             <StyledButton onClick={()=>history.push('/')}>Accueil</StyledButton>
             <StyledButton>Annonces</StyledButton>
             {isAuth?
-             <div>
+             <div style={{display: "flex"}}>
                   <StyledButton onClick={handleannonce1}>Ajouter Annonces</StyledButton>
                   <StyledButton onClick={()=>handleLogout()}>Log out</StyledButton>
              </div>

@@ -12,18 +12,33 @@ import LoginPage  from './pages/login';
 import { useEffect, useState } from 'react';
 import Footer from './components/Navigation/FooterComponent';
 
+import RegisterPage from './pages/register';
+
+
+
 function App() {
   const [isAuth,setIsAuth]= useState(false) ;
+  const [token, setToken] = useState(localStorage.getItem("token")) ; 
+ 
   useEffect(()=>{
-    const token = localStorage.getItem("token")
-  },[])  
+    setToken(localStorage.getItem("token"))
+    // if(token)
+    // { console.log(token);
+    //   setIsAuth(true) ; 
+    //   console.log("is auth",isAuth)
+    // }
+    
+  })  
   return (
     <div className="App">
-      <Navigation />
+      <Navigation isAuth={isAuth} setIsAuth={setIsAuth}/>
 
       <Switch>
-        <Route exact path='/login' component={LoginPage} />
-        <Route exact path ='/register' /> 
+        <Route exact path='/login' 
+         render={(props) => (
+          <LoginPage {...props} isAuth={isAuth} setIsAuth={setIsAuth} />
+        )} />
+        <Route exact path ='/register' render={(props)=> (<RegisterPage {...props} isAuth={isAuth} setIsAuth={setIsAuth} />)} />  
         <Route exact path ="/offre" component={AffichageAnnonce}/>
         <Route exact path ="/posterannonce" component={AjoutAnnonce}/>
         <Route path ="/annonce/:id" component={AffichageuneAnnonce}/>

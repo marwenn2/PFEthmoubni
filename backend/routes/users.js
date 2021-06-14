@@ -42,16 +42,13 @@ router.route('/').get(auth, (req, res) => {
 
 /*******Register*********//*********Token expire in 1 hour******** */
 router.route('/register').post([
-    check('Firstname', 'First name is required')
+    check('firstName', 'First name is required')
         .not()
         .isEmpty(),
-    check('Lastname', 'Last name is required')
+    check('lastName', 'Last name is required')
         .not()
         .isEmpty(),
-    check('username', 'username is required')
-        .not()
-        .isEmpty(),
-    check('phonenumber', 'phone number is required')
+    check('phoneNumber', 'phone number is required')
         .isLength({
             min: 8
         }),
@@ -62,20 +59,22 @@ router.route('/register').post([
             min: 6
         })
 ], async (req, res) => {
+    console.log(req.body)
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const username = req.body.username;
+   
     const email = req.body.email;
     const password = req.body.password;
-    const Firstname = req.body.Firstname;
-    const Lastname = req.body.Lastname;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
 
-    const borndate = req.body.borndate;
-    const bornplace = req.body.bornplace;
-    const phonenumber = req.body.phonenumber;
+    const birthDate = req.body.birthDate;
+    const adress = req.body.adress;
+    const phoneNumber = req.body.phoneNumber;
+    
     try {
         // See if user exists
         let user = await User.findOne({ email })
@@ -89,15 +88,14 @@ router.route('/register').post([
             d: 'mm'
         })
         user = new User({
-            username,
             email,
             password,
-            Firstname,
-            Lastname,
-            borndate,
+            firstName,
+            lastName,
+            birthDate,
         
-            bornplace,
-            phonenumber,
+            adress,
+            phoneNumber,
             avatar
             
         })
@@ -112,7 +110,7 @@ router.route('/register').post([
                 const token = JWT.sign(payload, config.get('jwtSecret'), {
                     expiresIn: 3600
                 });
-                user.save().then(() => res.json({ user, token })).catch(err => res.status(400).json(err));
+                user.save().then(() => res.json({ user ,msg:"Registraion successful", token })).catch(err => res.status(400).json(err));
             }));
 
     } catch (err) {
@@ -125,6 +123,17 @@ router.get('/userid/:id', (req, res) => {
     User.findById(req.params.id)
         .then(user => res.json(user))
         .catch(err => res.status(400).json('Error: ' + err));
+})
+
+router.post("/test",(req,res,next)=>{
+    const body = req.body
+    try {
+        console.log(body) ; 
+        
+    } catch (error) {
+        next(error) ; 
+        
+    }
 })
 
 

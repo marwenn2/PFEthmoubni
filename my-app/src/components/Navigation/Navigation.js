@@ -60,6 +60,12 @@ const Navigation=()=> {
         history.push('/login') ; 
 
     }
+    const handleannonce=()=> {
+        history.push('/offre');
+    }
+    const handleannonce1=()=> {
+        history.push('/posterannonce');
+    }
     return(
         <>
         <WrapperFlex>
@@ -71,7 +77,8 @@ const Navigation=()=> {
             <Wrapper>
             
             <StyledButton>Accueil</StyledButton>
-            <StyledButton>Annonces</StyledButton>
+            <StyledButton onClick={handleannonce}>Annonces</StyledButton>
+            <StyledButton onClick={handleannonce1}>Ajouter Annonces</StyledButton>
             <StyledButton onClick={handleLogin}>Connexion</StyledButton>
             </Wrapper>
            

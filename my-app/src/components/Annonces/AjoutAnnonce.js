@@ -11,6 +11,7 @@ const AjoutAnnonce = () => {
     categorie: '',
     zone: ''
 });
+const token = localStorage.getItem("token");
 const { text,
   title,
   name,
@@ -20,7 +21,9 @@ const { text,
   const onsubmit = e =>{
     e.preventDefault();
     const annonce = { title: title,name:name,text:text,categorie:categorie,zone:zone};
-    axios.post('http://localhost:5000/annonce/quizz',annonce)
+    axios.post('http://localhost:5000/annonce/',annonce, { headers: {
+      "x-auth-token" : token
+    }})
     .then(res=> console.log(res))
   }
 

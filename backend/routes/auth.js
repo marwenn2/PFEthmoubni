@@ -37,6 +37,7 @@ router.post('/client', [
         return res.status(400).json({
             errors: errors.array()
         });
+    
     }
 
     const { email, password } = req.body;
@@ -52,20 +53,8 @@ router.post('/client', [
             })
         }
 
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password) ; 
 
-        let role = "client"
-
-        const client = role.localeCompare(user.role);
-
-        if (client) {
-            console.log('not a client')
-            return res.status(400).json({
-                errors: [{
-                    msg: 'unidentified role'
-                }]
-            })
-        }
 
         if (!isMatch) {
             return res.status(400).json({
@@ -138,18 +127,7 @@ router.post('/admin', [
 
         const isMatch = await bcrypt.compare(password, user.password);
 
-        let role = "Student"
 
-        const client = role.localeCompare(user.role);
-
-        if (client) {
-            console.log('not a admin')
-            return res.status(400).json({
-                errors: [{
-                    msg: 'unidentified role'
-                }]
-            })
-        }
 
         if (!isMatch) {
             return res.status(400).json({

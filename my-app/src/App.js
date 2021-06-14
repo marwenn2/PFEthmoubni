@@ -33,7 +33,7 @@ function App() {
          render={(props) => (
           <LoginPage {...props} isAuth={isAuth} setIsAuth={setIsAuth} />
         )} />
-        <Route exact path ='/register' component={RegisterPage} />  
+        <Route exact path ='/register' render={(props)=> (<RegisterPage {...props} isAuth={isAuth} setIsAuth={setIsAuth} />)} />  
         <Route exact path ="/offre" component={AffichageAnnonce}/>
         <Route exact path ="/posterannonce" component={AjoutAnnonce}/>
         <Route path ="/annonce/:id" component={AffichageuneAnnonce}/>

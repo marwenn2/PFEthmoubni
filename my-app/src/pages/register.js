@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react' ; 
 import styled from 'styled-components' ;
 import TextField from '@material-ui/core/TextField';
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import loginSVG from '../assets/login.svg'
 import axios from 'axios' ; 
 
@@ -70,8 +70,8 @@ const Label = styled.h4`
 margin-top: 10px ; 
 font-size: 18px ; 
 `
-const RegisterPage = ()=>{
-
+const RegisterPage = ({isAuth,setIsAuth})=>{
+    const history = useHistory() ; 
     const [email , setEmail ] = useState("") ; 
     const [password, setPassword] = useState("") ; 
     const [firstName,setFirstName]= useState("") ; 
@@ -79,13 +79,18 @@ const RegisterPage = ()=>{
     const [phoneNumber,setPhoneNumber]= useState("") ; 
     const [birthDate,setBirthDate]= useState("") ; 
     const [adress,setAdress]= useState("") ; 
-    const [skills,setSkills] = useState("") ; 
+    const [skills,setSkills] = useState("") ;
+    const [userName, setUserName]= useState("") ;  
     const [error,setError]= useState("") ; 
 
     const handleClick = async()=> {
         try {
-            const response = await axios.post('/users/login',{email,password})  
+            
+            const response = await axios.post('/users/register',{firstName,lastName,phoneNumber,email,password,birthDate,adress})  
             localStorage.setItem("token",response.data.token) ;   
+            history.push('/') ; 
+            setIsAuth(true); 
+            alert(response.data.msg)
         } catch (error) {
             setError(error.response.data.errors[0].msg) ; 
             console.log(error.response.data.errors[0].msg) ;  
@@ -122,44 +127,52 @@ return (
             type='password'
             onChange={(e)=>setPassword(e.target.value)}/>
             </div>
+            {/* <div style={{marginLeft:"50px"}}>
+            <Label>Email adress</Label>
+            <TextField label="User name" color='primary'
+            variant='outlined'
+            type='text'
+            error={Boolean(error)}
+            onChange={(e)=>setUserName(e.target.value)}/>
+            </div> */}
             <div style={{marginLeft:"50px"}}>
             <Label>First name : </Label>
             <TextField label="First name" variant='outlined'
             type='text'
-            onChange={(e)=>setPassword(e.target.value)}/>
+            onChange={(e)=>setFirstName(e.target.value)}/>
             </div>
            
             <div style={{marginLeft:"50px"}}>
              <Label>Last name: </Label>
             <TextField label="Last name" variant='outlined'
             type='text'
-            onChange={(e)=>setPassword(e.target.value)}/>
+            onChange={(e)=>setLastName(e.target.value)}/>
             </div>
 
             <div style={{marginLeft:"50px"}}>
              <Label>Phone number:</Label>
             <TextField label="Phone number" variant='outlined'
             type='tel'
-            onChange={(e)=>setPassword(e.target.value)}/>
+            onChange={(e)=>setPhoneNumber(e.target.value)}/>
 </div>
 <div style={{marginLeft:"50px"}}>
              <Label>Adress:</Label>
             <TextField label="Adress" variant='outlined'
             type='text'
-            onChange={(e)=>setPassword(e.target.value)}/>
+            onChange={(e)=>setAdress(e.target.value)}/>
 </div>
 
-<div style={{marginLeft:"50px"}}>
+{/* <div style={{marginLeft:"50px"}}>
              <Label>Skills:</Label>
             <TextField label="Skills" variant='outlined'
             type='text'
-            onChange={(e)=>setPassword(e.target.value)}/>
-            </div>
+            onChange={(e)=>setSkills(e.target.value)}/>
+            </div> */}
             <div style={{marginLeft:"50px"}}>
              <Label>Birth Date</Label>
             <TextField  variant='outlined'
             type='date'
-            onChange={(e)=>setPassword(e.target.value)}/>
+            onChange={(e)=>setBirthDate(e.target.value)}/>
 </div>
             </RowFlex>
         </form>

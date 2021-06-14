@@ -102,7 +102,7 @@ return (
         <form>
             <Label>Email adress</Label>
             <TextField label="Email" color='primary'
-            fullWidth="true"
+            fullWidth={true}
             variant='outlined'
             type='email'
             error={Boolean(error)}

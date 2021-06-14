@@ -29,10 +29,6 @@ const userSchema = new Schema({
     Lastname: {
         type: String,
     },
-
-    role: {
-        type: String
-    },
     avatar: {
         type: String
     },

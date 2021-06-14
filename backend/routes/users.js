@@ -74,7 +74,6 @@ router.route('/register').post([
     const Lastname = req.body.Lastname;
 
     const borndate = req.body.borndate;
-    const role = req.body.role;
     const bornplace = req.body.bornplace;
     const phonenumber = req.body.phonenumber;
     try {
@@ -96,7 +95,7 @@ router.route('/register').post([
             Firstname,
             Lastname,
             borndate,
-            role,
+        
             bornplace,
             phonenumber,
             avatar

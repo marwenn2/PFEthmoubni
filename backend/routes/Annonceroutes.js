@@ -11,7 +11,20 @@ router.get('/recupererannonce', (req, res) => {
 })
 
 
-
+router.post('/quizz', (req, res) => {
+    
+       
+    const newPost = new annonce({
+        title: req.body.title,
+        text: req.body.text,
+        categorie:req.body.categorie,
+        zone:req.body.zone,
+        name: req.body.name,
+    })
+        newPost.save()
+        .then(() => res.json(newPost))
+        .catch(err => res.status(400).json('Error:' + err));
+})
 
 router.route('/').post([auth, [
     check('text', 'Text is required').not().isEmpty()
@@ -26,6 +39,8 @@ router.route('/').post([auth, [
         const newPost = new annonce({
             title: req.body.title,
             text: req.body.text,
+            categorie:req.body.categorie,
+            zone:req.body.zone,
             name: user.username,
             avatar: user.avatar,
             user: req.user.id

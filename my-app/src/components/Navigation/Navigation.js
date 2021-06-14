@@ -1,4 +1,4 @@
-import React from 'react' ; 
+import React, { useEffect } from 'react' ; 
 import { useHistory } from 'react-router';
 import styled from 'styled-components' ; 
 import toolbox from '../../assets/toolbox.svg'
@@ -33,10 +33,16 @@ border-radius: 14px ;
 
 }
 `
-const Khaddamny = styled.h3`
+const Khaddamny = styled.button`
 color: #87abfa ; 
 margin-left: 30px ; 
-font-size: 25px ; 
+font-size: 25px ;
+border:0 ; 
+background-color: transparent; 
+
+&: hover{
+    cursor: pointer; 
+}
 `
 const Wrapper = styled.div`
 display : flex ; 
@@ -53,26 +59,35 @@ display: flex ;
 justify-content: space-around ; 
 align-items: center;  `
 
-const Navigation=()=> {
+const Navigation=({isAuth,setIsAuth})=> {
     const history = useHistory() ; 
-
     const handleLogin=()=>{
         history.push('/login') ; 
 
     }
+    const handleLogout=()=>{
+        localStorage.removeItem("token")
+        setIsAuth(false); 
+        history.push('/login')
+    }
+  
     return(
         <>
         <WrapperFlex>
             <Logo>
-            <Khaddamny>Khadamny</Khaddamny>
+            <Khaddamny onClick={()=> history.push('/')}>Khadamny</Khaddamny>
             <IMG src = {toolbox} alt="My Happy SVG"/>
             </Logo>
             
             <Wrapper>
             
-            <StyledButton>Accueil</StyledButton>
+            <StyledButton onClick={()=>history.push('/')}>Accueil</StyledButton>
             <StyledButton>Annonces</StyledButton>
-            <StyledButton onClick={handleLogin}>Connexion</StyledButton>
+            {isAuth?
+            
+            <StyledButton onClick={()=>handleLogout()}>Log out</StyledButton>:
+            <StyledButton onClick={handleLogin}>Connexion</StyledButton>}
+            
             </Wrapper>
            
         </WrapperFlex>

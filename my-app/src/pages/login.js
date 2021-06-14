@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import {Link} from 'react-router-dom'
 import loginSVG from '../assets/login.svg'
 import axios from 'axios' ; 
+import { useHistory } from 'react-router';
 
 const SignInButton = styled.button`
 margin-top: 20px ; 
@@ -60,8 +61,8 @@ const IMG = styled.img`
 `
 const Error= styled.div`
 color: red;`
-const LoginPage = ()=>{
-
+const LoginPage = ({isAuth,setIsAuth})=>{
+    const history = useHistory() ; 
     const [email , setEmail ] = useState("") ; 
     const [password, setPassword] = useState("") ; 
     const [error,setError]= useState("") ; 
@@ -69,7 +70,10 @@ const LoginPage = ()=>{
     const handleClick = async()=> {
         try {
             const response = await axios.post('/users/login',{email,password})  
-            localStorage.setItem("token",response.data.token) ;   
+            localStorage.setItem("token",response.data.token) ;
+            setIsAuth(true) ; 
+            history.push('/');
+
         } catch (error) {
             setError(error.response.data.errors[0].msg) ; 
             console.log(error.response.data.errors[0].msg) ;  
@@ -85,7 +89,7 @@ return (
         <IMG src={loginSVG} ></IMG>
      </SidePage>
     <ColWrapper>
-    <Link>Don't have an account ? Register</Link>
+    <Link to='/register'>Don't have an account ? Register</Link>
         <h2>Login to Khadamny</h2>
         <Error>{error}</Error>    
         
@@ -101,7 +105,7 @@ return (
             <ColContainer>
             <FlexContainer>
             <h4>Password</h4>
-            <Link >forgot password ?</Link>
+            <Link to='/forgot-password'>forgot password ?</Link>
             </FlexContainer>
             
 

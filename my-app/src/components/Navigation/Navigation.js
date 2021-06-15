@@ -87,7 +87,7 @@ const Navigation=({isAuth,setIsAuth})=> {
             
             <Wrapper>
             
-            <StyledButton onClick={()=>history.push('/')}>Accueil</StyledButton>
+            <StyledButton onClick={()=>history.push('/home')}>Accueil</StyledButton>
             <StyledButton onClick={()=>handleannonce()}>Annonces</StyledButton>
             {isAuth?
              <div style={{display: "flex"}}>

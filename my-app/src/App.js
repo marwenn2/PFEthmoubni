@@ -6,7 +6,7 @@ import AjoutAnnonce from './components/Annonces/AjoutAnnonce';
 import AffichageAnnonce from './components/Annonces/AffichageAnnonce';
 import AffichageuneAnnonce from './components/Annonces/Affichageuneannonce';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Home from './pages/home';
 
 import LoginPage  from './pages/login';
 import { useEffect, useState } from 'react';
@@ -41,6 +41,7 @@ function App() {
         <Route exact path ='/register' render={(props)=> (<RegisterPage {...props} isAuth={isAuth} setIsAuth={setIsAuth} />)} />  
         <Route exact path ="/offre" component={AffichageAnnonce}/>
         <Route exact path ="/posterannonce" component={AjoutAnnonce}/>
+        <Route exact path ="/home" component={Home}/>
         <Route path ="/annonce/:id" component={AffichageuneAnnonce}/>
       </Switch>
       

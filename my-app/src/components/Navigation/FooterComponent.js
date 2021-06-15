@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <div className="footer fixed-bottom" style={{backgroundColor:"#85C1E9"}}>
+    <div className="footer" style={{backgroundColor:"#85C1E9"}}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-4 offset-1 col-sm-2">
             <h5>Liens utils</h5>
             <ul className="list-unstyled">
               <li>
-                <Link to="/">Home</Link>
+                <Link to="/home">Home</Link>
               </li>
               <li>
                 <Link to="/offre">annonces</Link>

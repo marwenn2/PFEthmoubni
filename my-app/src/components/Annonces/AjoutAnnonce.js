@@ -3,7 +3,7 @@ import { Container, FormGroup,Label, Input,Button,Form,Row,Col,Breadcrumb,Breadc
 import { Zones } from '../../shared/zones';
 import  { Categories } from '../../shared/categories';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 const AjoutAnnonce = () => {
   const [formData, setFormData] = useState({
     text: '',
@@ -12,6 +12,7 @@ const AjoutAnnonce = () => {
     categorie: '',
     zone: ''
 });
+const history= useHistory();
 const token = localStorage.getItem("token");
 const { text,
   title,
@@ -27,6 +28,7 @@ const { text,
       "x-auth-token" : token
     }})
     .then(res=> console.log(res))
+    history.push('/offre');
   }
 
 return (

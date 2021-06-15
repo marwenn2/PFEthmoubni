@@ -64,30 +64,22 @@ router.route('/modifiercommentaire/:idp/:idc').put([auth,
 })
 ///supprimer une annonce
 
-router.route('/deletecommentaire/:idp/:idc').delete([auth, 
-    
-], async (req, res) => {
- 
-    try {
-        const commentairee = await commentaire.findById(req.params.idc);
-        const post = await annonce.findById(req.params.idp);
-        //console.log(post.comments)
+router.delete('/deletecommentaire/:idp/:idc', async (req, res) =>  {
+   
+    await annonce.findById(req.params.idp).then(post => {
         const comms = post.comments;
-        const index=comms.findIndex(x => x._id.toString()===commentairee._id.toString())
-        console.log(index)
-        comms.splice(1)
-        post.comments=comms;
-        console.log(post.comments)
+    
+       let index = post.comments.indexOf(x=> x._id.toString===req.params.idc)
+        post.comments.splice(index,1);
+   
+    console.log(post.comments)
         post.save().then(() => res.json('annonce mise à jour!'))
-        .catch(err => res.status(400).json('Error: ' + err));
-        commentaire.findByIdAndDelete(req.params.idc).then(()=>res.json('commenaire supprimé')).catch(err =>res.status(400).json('Error:'+err))
-        
-    } catch (error) {
-        console.error(error)
-        res.status(500).send('server Error')
-    }
-
+    .catch(err => res.status(400).json('Error: ' + err));
+    })
+    commentaire.findByIdAndDelete(req.params.idc).then(()=>res.json('commenaire supprimé')).catch(err =>res.status(400).json('Error:'+err))
 })
+
+
 router.get('/recuperercommentaires/:id', (req, res) => {
     commentaire.findById(req.params.id)
         .then(commentaire => res.json(commentaire))

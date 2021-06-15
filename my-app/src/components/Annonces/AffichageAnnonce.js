@@ -13,16 +13,32 @@ import {
 import { Link } from "react-router-dom";
 const AffichageAnnonce = () => {
   const history = useHistory() ; 
-
+  const [search,setsearch] = useState("");
     const [annonce,setannonces] = useState([]);
     useEffect(()=> {
-        axios.get('http://localhost:5000/annonce/recupererannonce')
-        .then(res => {
-            console.log(res.data);
-            setannonces(res.data);
-            console.log(annonce)
-        })
-    },[])
+      axios.get('http://localhost:5000/annonce/recupererannonce')
+      .then(res => {
+          console.log(res.data);
+          setannonces(res.data);
+          console.log(annonce)
+      })
+        if(search===""){
+          axios.get('http://localhost:5000/annonce/recupererannonce')
+          .then(res => {
+              console.log(res.data);
+              setannonces(res.data);
+              console.log(annonce)
+          })
+        }
+        else if(search!=="")
+        {
+          let array=annonce.filter(x=> x.title.includes(search))
+          setannonces(array)
+        }
+    })
+    const handlechange = (e) => {
+      setsearch(e.target.value)
+    }
     const handledetails=(id)=> {
         history.push(`/annonce/${id}`)
     }
@@ -33,13 +49,13 @@ const AffichageAnnonce = () => {
       <div className="row" >
        
         <div className="col-12">
-          <h3>Toutes nos annonces</h3>
+          <h3>Toutes nos annonces</h3> <input type="search" className="form-control" placeholder="searching..." onChange={e=> handlechange(e)}/>
           <hr />
         </div>
       </div>
        {annonce.map(element => {
          return(
-          <div className="row row-content" style={{marginBottom:"50px"}} style={{fontFamily:"'Baloo Tammudu 2' ,sans-serif"}}>
+          <div key={element._id} className="row row-content" style={{marginBottom:"50px"}} style={{fontFamily:"'Baloo Tammudu 2' ,sans-serif"}}>
           <div className="col-12 col-md-6">
             <h2>Description</h2>
             <p>

@@ -12,7 +12,7 @@ const app = express();
 
 
 const AnnonceRouter = require('./routes/Annonceroutes');
-
+const Commentaire = require('./routes/Commentaireroutes');
 
 require('dotenv').config();
 app.use(cookieParser());
@@ -63,4 +63,5 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/annonce', AnnonceRouter);
 app.use('/users', usersRouter);
 app.use('/forgot', forgotpassword);
+app.use('/commentaire',Commentaire)
 app.use('/api/auth', require('./routes/auth'));

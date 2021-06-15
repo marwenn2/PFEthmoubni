@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Container, FormGroup,Label, Input,Button,Form,Row,Col } from 'reactstrap';
+import { Container, FormGroup,Label, Input,Button,Form,Row,Col,Breadcrumb,BreadcrumbItem } from 'reactstrap';
 import { Zones } from '../../shared/zones';
 import  { Categories } from '../../shared/categories';
 import axios from 'axios';
+import { Link } from "react-router-dom";
 const AjoutAnnonce = () => {
   const [formData, setFormData] = useState({
     text: '',
@@ -20,6 +21,7 @@ const { text,
   const onchange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
   const onsubmit = e =>{
     e.preventDefault();
+    console.log(token)
     const annonce = { title: title,name:name,text:text,categorie:categorie,zone:zone};
     axios.post('http://localhost:5000/annonce/',annonce, { headers: {
       "x-auth-token" : token
@@ -29,42 +31,54 @@ const { text,
 
 return (
   <>
-  
-    
-<Container>
-  <Row>
-    <Col md="8">
-<Form onSubmit={e => onsubmit(e)}>
-              <FormGroup>
-                <Label htmlFor="title">title</Label>
+  <div className="container">
+  <div className="row">
+        
+        <div className="col-12">
+          <h3>Ajouter une annonce</h3>
+          <hr />
+        </div>
+      </div>
+      <div className="row row-content" style={{marginBottom:"50px"}}>
+      <div className="col-12 col-md-6 offset-3">
+      <Form onSubmit={e => onsubmit(e)}>
+              <Row className="form-group">
+               
+                <Col>
                 <Input
                   type="text"
                   id="title"
                   name="title"
+                  placeholder="entrez un titre pour votre annonce"
                   value={title}
                   onChange={e => onchange(e)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="name">name</Label>
+                /></Col>
+              </Row>
+              <Row className="form-group">
+              <Col>
                 <Input
                   type="text"
                   id="name"
                   name="name"
                   value={name}
+                  placeholder="entrez un libelle pour votre annonce"
                   onChange={e => onchange(e)}                
                 />
-              </FormGroup>
-              <FormGroup>
-                <Label htmlFor="text">description</Label>
+                </Col>
+              </Row>
+              <Row className="form-group">
+                <Col>
                 <Input
                   type="textarea"
                   id="text"
                   name="text"
+                  placeholder="entrez votre description"
                   value={text}
+                  rows={8}
                   onChange={e => onchange(e)}
                 />
-              </FormGroup>
+                </Col>
+              </Row>
               <FormGroup>
                 <Label htmlFor="Catégorie">Catégorie</Label>
                 <Input type="select" className="form-control" id="categorie" name="categorie" onChange={e => onchange(e)}>
@@ -99,9 +113,9 @@ return (
                 Ajouter annonce
               </Button>
             </Form>
-            </Col>
-            </Row>
-            </Container>
+        </div>
+      </div>
+  </div>
 </>
       );
     };

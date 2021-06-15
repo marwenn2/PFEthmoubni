@@ -45,7 +45,7 @@ router.route('/').post([auth, [
             avatar: user.avatar,
             user: req.user.id
         })
-
+        
 
         const post = await newPost.save();
         res.json(post);

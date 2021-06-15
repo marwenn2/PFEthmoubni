@@ -6,9 +6,14 @@ import AjoutAnnonce from './components/Annonces/AjoutAnnonce';
 import AffichageAnnonce from './components/Annonces/AffichageAnnonce';
 import AffichageuneAnnonce from './components/Annonces/Affichageuneannonce';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 import LoginPage  from './pages/login';
 import { useEffect, useState } from 'react';
+import Footer from './components/Navigation/FooterComponent';
+
 import RegisterPage from './pages/register';
+
 
 
 function App() {
@@ -39,7 +44,7 @@ function App() {
         <Route path ="/annonce/:id" component={AffichageuneAnnonce}/>
       </Switch>
       
-
+    <Footer/>
       
     </div>
   );

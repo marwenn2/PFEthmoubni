@@ -24,11 +24,7 @@
     "styled-components": "^5.3.0",
     "web-vitals": "^1.0.1"
   },
-<<<<<<< HEAD
-  "proxy": "http://localhost:5000",
-=======
   
->>>>>>> secondary
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

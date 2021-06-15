@@ -22,13 +22,13 @@ function App() {
  
   useEffect(()=>{
     setToken(localStorage.getItem("token"))
-    // if(token)
-    // { console.log(token);
-    //   setIsAuth(true) ; 
-    //   console.log("is auth",isAuth)
-    // }
+     if(token)
+     { console.log(token);
+       setIsAuth(true) ; 
+       console.log("is auth",isAuth)
+     }
     
-  })  
+  },[token])  
   return (
     <div className="App">
       <Navigation isAuth={isAuth} setIsAuth={setIsAuth}/>

@@ -1,7 +1,98 @@
-import React, { useEffect } from 'react' ; 
+import React, { useEffect ,useState} from 'react' ; 
 import { useHistory } from 'react-router';
 import styled from 'styled-components' ; 
 import toolbox from '../../assets/toolbox.svg'
+import SimpleMenu from './Menu';
+import axios from 'axios' ; 
+
+
+const Navigation=({isAuth,setIsAuth})=> {
+    const history = useHistory() ; 
+    const [avatar,setAvatar]= useState(""); 
+    const [firstName,setFirstName]= useState(""); 
+    const [lastName,setLastName] = useState("") ; 
+    useEffect(async()=>{
+    const token = localStorage.getItem("token")
+        const response = await axios.get('http://localhost:5000/users/me',{headers:{
+            'x-auth-token': token 
+        }}) ; 
+        setAvatar(response.data.avatar) ;
+        setFirstName(response.data.firstName) ; 
+        setLastName(response.data.lastName)  ; 
+            console.log(response.data) ; 
+        
+    },[])
+    
+    const handleLogin=()=>{
+        history.push('/login') ; 
+
+    }
+    const handleLogout=()=>{
+        localStorage.removeItem("token")
+        setIsAuth(false); 
+        history.push('/login')
+    }
+  
+    const handleannonce=()=> {
+        history.push('/offre');
+    }
+    const handleannonce1=()=> {
+        history.push('/posterannonce');
+    }
+    return(
+        <>
+        <WrapperFlex>
+            <Logo>
+            <Khaddamny onClick={()=> history.push('/')}>Khadamny</Khaddamny>
+            <IMG src = {toolbox} alt="My Happy SVG"/>
+            </Logo>
+            
+            <Wrapper>
+            
+            <StyledButton onClick={()=>history.push('/')}>Accueil</StyledButton>
+            <StyledButton onClick={()=>handleannonce()}>Annonces</StyledButton>
+            {isAuth?
+             <div style={{display: "flex"}}>
+                 
+                  <StyledButton onClick={handleannonce1}>Ajouter Annonces</StyledButton>
+                    <Name>
+                        
+                        <Content>{firstName} {lastName}</Content>
+                        
+                    </Name>
+                 
+                  <SimpleMenu isAuth={isAuth} setIsAuth={setIsAuth} avatar={avatar}>Account</SimpleMenu>
+                  
+             </div>
+            :
+            <StyledButton onClick={handleLogin}>Connexion</StyledButton>}
+           
+           
+            </Wrapper>
+           
+        </WrapperFlex>
+        </>
+    )
+
+}
+export default Navigation ; 
+
+
+const Name = styled.div`
+margin-top: 20px ;
+display: flex; 
+justify-content: space-between ;    
+font-family: 'Baloo Tammudu 2' ,sans-serif ; 
+font-size: 17px ; 
+font-weight: 400 ; 
+
+`
+const Content= styled.div`
+font-family: 'Baloo Tammudu 2' ,sans-serif ;
+padding-top:5px ; 
+margin-left: 20px ;   
+font-size: 17px ; 
+`
 
 const WrapperFlex =styled.div`
 display : flex ; 
@@ -58,51 +149,3 @@ const Logo = styled.div`
 display: flex ;
 justify-content: space-around ; 
 align-items: center;  `
-
-const Navigation=({isAuth,setIsAuth})=> {
-    const history = useHistory() ; 
-    const handleLogin=()=>{
-        history.push('/login') ; 
-
-    }
-    const handleLogout=()=>{
-        localStorage.removeItem("token")
-        setIsAuth(false); 
-        history.push('/login')
-    }
-  
-    const handleannonce=()=> {
-        history.push('/offre');
-    }
-    const handleannonce1=()=> {
-        history.push('/posterannonce');
-    }
-    return(
-        <>
-        <WrapperFlex>
-            <Logo>
-            <Khaddamny onClick={()=> history.push('/')}>Khadamny</Khaddamny>
-            <IMG src = {toolbox} alt="My Happy SVG"/>
-            </Logo>
-            
-            <Wrapper>
-            
-            <StyledButton onClick={()=>history.push('/')}>Accueil</StyledButton>
-            <StyledButton onClick={()=>handleannonce()}>Annonces</StyledButton>
-            {isAuth?
-             <div style={{display: "flex"}}>
-                  <StyledButton onClick={handleannonce1}>Ajouter Annonces</StyledButton>
-                  <StyledButton onClick={()=>handleLogout()}>Log out</StyledButton>
-             </div>
-            :
-            <StyledButton onClick={handleLogin}>Connexion</StyledButton>}
-           
-           
-            </Wrapper>
-           
-        </WrapperFlex>
-        </>
-    )
-
-}
-export default Navigation ; 

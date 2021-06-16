@@ -142,7 +142,9 @@ router.post('/reset/:token', function (req, res) {
             res.json('/');
         });
 
-
+router.post('/change-password',async(req,res)=>{
+   
+})
 
 
 });

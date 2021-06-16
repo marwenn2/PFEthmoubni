@@ -6,8 +6,7 @@ import AjoutAnnonce from './components/Annonces/AjoutAnnonce';
 import AffichageAnnonce from './components/Annonces/AffichageAnnonce';
 import AffichageuneAnnonce from './components/Annonces/Affichageuneannonce';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-
+import Profile from './components/User/Profile'
 import LoginPage  from './pages/login';
 import { useEffect, useState } from 'react';
 import Footer from './components/Navigation/FooterComponent';
@@ -23,9 +22,8 @@ function App() {
   useEffect(()=>{
     setToken(localStorage.getItem("token"))
      if(token)
-     { console.log(token);
+     { 
        setIsAuth(true) ; 
-       console.log("is auth",isAuth)
      }
     
   },[token])  
@@ -40,6 +38,7 @@ function App() {
         )} />
         <Route exact path ='/register' render={(props)=> (<RegisterPage {...props} isAuth={isAuth} setIsAuth={setIsAuth} />)} />  
         <Route exact path ="/offre" component={AffichageAnnonce}/>
+        <Route path ="/profile" component={Profile} />
         <Route exact path ="/posterannonce" component={AjoutAnnonce}/>
         <Route path ="/annonce/:id" component={AffichageuneAnnonce}/>
       </Switch>

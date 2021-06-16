@@ -30,7 +30,7 @@ function App() {
     
   },[token])  
   return (
-    <div className="App">
+    <>
       <Navigation isAuth={isAuth} setIsAuth={setIsAuth}/>
 
       <Switch>
@@ -47,8 +47,8 @@ function App() {
       </Switch>
       
     <Footer/>
-      
-    </div>
+      </>
+    
   );
 }
 

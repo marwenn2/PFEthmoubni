@@ -41,6 +41,7 @@ const Navigation=({isAuth,setIsAuth})=> {
     }
     return(
         <>
+    <Div>
         <WrapperFlex>
             <Logo>
             <Khaddamny onClick={()=> history.push('/')}>Khadamny</Khaddamny>
@@ -71,12 +72,13 @@ const Navigation=({isAuth,setIsAuth})=> {
             </Wrapper>
            
         </WrapperFlex>
+        </Div>
+        
         </>
     )
 
 }
 export default Navigation ; 
-
 
 const Name = styled.div`
 margin-top: 20px ;
@@ -93,13 +95,15 @@ padding-top:5px ;
 margin-left: 20px ;   
 font-size: 17px ; 
 `
-
+const Div=styled.div`
+position: sticky;
+top: 0; 
+background-color: white ; 
+z-index: 1;
+`
 const WrapperFlex =styled.div`
 display : flex ; 
-justify-content: space-between ; 
-alignt-items : center ; 
-position: sticky ;  
-border: 0 ; 
+justify-content: space-between ;  
 box-shadow: 0 2px 4px 0 rgba(0,0,0,.2); 
 
 `

@@ -153,8 +153,14 @@ const Profile = ()=>{
 
             </Div>
         </Flex>
-        {result&& <Alert>{result&&result}</Alert>}
-        {error&& <Alert severity="error">{error&&error}</Alert>}
+        {result&& 
+        <div style={{marginLeft:"100px",marginTop:"30px"}}>
+            <Alert>{result&&result}</Alert>
+            </div>}
+        {error&& 
+        <div style={{marginLeft:"100px" ,marginTop:"30px"}}>
+            <Alert severity="error">{error&&error}</Alert>
+            </div>}
             
             
            <StyledButton onClick={handleChangePassword}>Change password</StyledButton>
@@ -180,7 +186,7 @@ width: 30% ;
 color: white ; 
 position: relative; 
 left: 40% ; 
-top:40% ; 
+top:15% ; 
 
 padding-top: 10px ; 
 padding-bottom : 10px ; 
@@ -215,7 +221,7 @@ position: relative ;
 width: 50% ; 
 left: 20% ; 
 display: flex ; 
-padding-bottom: 10% ; 
+padding-bottom: 4% ; 
 padding-top: 3% ; 
 `
 const SignInButton = styled.button`

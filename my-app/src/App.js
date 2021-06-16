@@ -6,12 +6,9 @@ import AjoutAnnonce from './components/Annonces/AjoutAnnonce';
 import AffichageAnnonce from './components/Annonces/AffichageAnnonce';
 import AffichageuneAnnonce from './components/Annonces/Affichageuneannonce';
 import 'bootstrap/dist/css/bootstrap.min.css';
-<<<<<<< HEAD
 import Profile from './components/User/Profile'
-=======
 import Home from './pages/home';
 
->>>>>>> 6a44b95b59f01bfb5659be98dc00b62b9f14ced1
 import LoginPage  from './pages/login';
 import { useEffect, useState } from 'react';
 import Footer from './components/Navigation/FooterComponent';

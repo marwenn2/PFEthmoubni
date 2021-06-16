@@ -73,8 +73,10 @@ const LoginPage = ({isAuth,setIsAuth})=>{
 
     const handleClick = async()=> {
         try {
-            const response = await axios.post('http://localhost:5000/users/login',{email,password})  
+            const response = await axios.post('http://localhost:5000/users/login',{email,password}) 
+            console.log(response.data) 
             localStorage.setItem("token",response.data.token) ;
+            localStorage.setItem("id",response.data.user._id);
             setIsAuth(true) ; 
             history.push('/');
 

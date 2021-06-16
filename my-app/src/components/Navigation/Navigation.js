@@ -148,4 +148,56 @@ margin-left: 20px ;
 const Logo = styled.div`
 display: flex ;
 justify-content: space-around ; 
+<<<<<<< HEAD
 align-items: center;  `
+=======
+align-items: center;  `
+
+const Navigation=({isAuth,setIsAuth})=> {
+    const history = useHistory() ; 
+    const handleLogin=()=>{
+        history.push('/login') ; 
+
+    }
+    const handleLogout=()=>{
+        localStorage.removeItem("token")
+        setIsAuth(false); 
+        history.push('/login')
+    }
+  
+    const handleannonce=()=> {
+        history.push('/offre');
+    }
+    const handleannonce1=()=> {
+        history.push('/posterannonce');
+    }
+    return(
+        <>
+        <WrapperFlex>
+            <Logo>
+            <Khaddamny onClick={()=> history.push('/')}>Khadamny</Khaddamny>
+            <IMG src = {toolbox} alt="My Happy SVG"/>
+            </Logo>
+            
+            <Wrapper>
+            
+            <StyledButton onClick={()=>history.push('/home')}>Accueil</StyledButton>
+            <StyledButton onClick={()=>handleannonce()}>Annonces</StyledButton>
+            {isAuth?
+             <div style={{display: "flex"}}>
+                  <StyledButton onClick={handleannonce1}>Ajouter Annonces</StyledButton>
+                  <StyledButton onClick={()=>handleLogout()}>Log out</StyledButton>
+             </div>
+            :
+            <StyledButton onClick={handleLogin}>Connexion</StyledButton>}
+           
+           
+            </Wrapper>
+           
+        </WrapperFlex>
+        </>
+    )
+
+}
+export default Navigation ; 
+>>>>>>> 6a44b95b59f01bfb5659be98dc00b62b9f14ced1
